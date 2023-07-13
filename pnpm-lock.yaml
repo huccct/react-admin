@@ -14,6 +14,9 @@ dependencies:
   mobx:
     specifier: ^6.9.1
     version: registry.npmmirror.com/mobx@6.9.1
+  mobx-react:
+    specifier: ^9.0.0
+    version: registry.npmmirror.com/mobx-react@9.0.0(mobx@6.9.1)(react-dom@18.2.0)(react@18.2.0)
   mobx-react-lite:
     specifier: ^4.0.3
     version: registry.npmmirror.com/mobx-react-lite@4.0.3(mobx@6.9.1)(react-dom@18.2.0)(react@18.2.0)
@@ -4633,6 +4636,28 @@ packages:
       react: registry.npmmirror.com/react@18.2.0
       react-dom: registry.npmmirror.com/react-dom@18.2.0(react@18.2.0)
       use-sync-external-store: registry.npmmirror.com/use-sync-external-store@1.2.0(react@18.2.0)
+    dev: false
+
+  registry.npmmirror.com/mobx-react@9.0.0(mobx@6.9.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-rhUBWXK/k4H/jMXZqbL0uTPncRSvJR23tpmJemoAEjJjm0Fkv6tTLG3Cze9MIgvf882Kradx6msizuQxLAiQwA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/mobx-react/-/mobx-react-9.0.0.tgz}
+    id: registry.npmmirror.com/mobx-react/9.0.0
+    name: mobx-react
+    version: 9.0.0
+    peerDependencies:
+      mobx: ^6.9.0
+      react: ^16.8.0 || ^17 || ^18
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      mobx: registry.npmmirror.com/mobx@6.9.1
+      mobx-react-lite: registry.npmmirror.com/mobx-react-lite@4.0.3(mobx@6.9.1)(react-dom@18.2.0)(react@18.2.0)
+      react: registry.npmmirror.com/react@18.2.0
+      react-dom: registry.npmmirror.com/react-dom@18.2.0(react@18.2.0)
     dev: false
 
   registry.npmmirror.com/mobx@6.9.1:
