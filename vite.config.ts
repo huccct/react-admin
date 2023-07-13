@@ -7,6 +7,7 @@ import path from 'path'
 export default ({ command, mode }: ConfigEnv): UserConfigExport => {
   let env = loadEnv(mode, process.cwd())
   return {
+    base: './',
     plugins: [react(), UnoCSS()],
     resolve: { alias: { '@': path.resolve('./src') } },
     css: {

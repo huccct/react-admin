@@ -1,14 +1,10 @@
 import React from 'react'
 import { observer } from 'mobx-react-lite'
-import { Button } from 'antd'
-
+import { useRoutes } from 'react-router-dom'
+import router from './routes'
 const App: React.FC = observer(() => {
-  return (
-    <div className="text-25px text-#ff6700 bg-#ccc">
-      你好Unocss
-      <Button>Test</Button>
-    </div>
-  )
+  const routeRes = useRoutes(router)
+  return <>{routeRes}</>
 })
 
 export default App
