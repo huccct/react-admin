@@ -4,11 +4,31 @@ import {
   InfoCircleOutlined
 } from '@ant-design/icons'
 import { Card, Row, Col, Form, Input, Button } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import backgroundImage from '@/assets/images/background.jpg'
 import Identify from '@/components/VerifyCode'
 const index: React.FC = observer(() => {
+  const [identifyCode, setIdentifyCode] = useState('1234')
+  let identifyCodes = '1234567890abcdefjhijklinopqrsduvwxyz'
+
+  // 重置验证码
+  const refreshCode = () => {
+    let newIdentifyCode = makeCode(4)
+    setIdentifyCode(newIdentifyCode)
+  }
+
+  const makeCode = (l: number) => {
+    let newIdentifyCode = ''
+    for (let i = 0; i < l; i++) {
+      newIdentifyCode += identifyCodes[randomNum(0, identifyCodes.length)]
+    }
+    return newIdentifyCode
+  }
+
+  const randomNum = (min: number, max: number) => {
+    return Math.floor(Math.random() * (max - min) + min)
+  }
   return (
     <div
       className="w-full h-screen bg-cover bg-no-repeat bg-center fixed"
@@ -45,9 +65,14 @@ const index: React.FC = observer(() => {
                   size="large"
                   placeholder="VerifyCode"
                   prefix={<InfoCircleOutlined />}
-                  suffix={<Identify />}
+                  suffix={
+                    <Identify
+                      identifyCode={identifyCode}
+                      onClick={refreshCode}
+                    />
+                  }
                   className="pt-0 pb-0 pr-0"
-                ></Input>
+                />
               </Form.Item>
               <Form.Item>
                 <Button className="w-full" type="primary">

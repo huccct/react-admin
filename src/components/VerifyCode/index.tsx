@@ -10,15 +10,23 @@ interface IProps {
   dotColorMax?: number // 背景干扰点最小值
   contentWidth?: number // 容器宽度
   contentHeight?: number // 容器高度
+  onClick?: () => void
 }
 const Identify = ({
   identifyCode = '1234',
   fontSizeMin = 25,
   fontSizeMax = 35,
   contentWidth = 100,
-  contentHeight = 40
+  contentHeight = 40,
+  onClick
 }: IProps) => {
   const canvasRef = useRef(null)
+
+  const handleCanvasClick = () => {
+    if (onClick) {
+      onClick()
+    }
+  }
 
   const randomNum = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min) + min)
@@ -96,7 +104,11 @@ const Identify = ({
   }, [identifyCode])
 
   return (
-    <div className="cursor-pointer" style={{ height: contentHeight + 'px' }}>
+    <div
+      className="cursor-pointer"
+      style={{ height: contentHeight + 'px' }}
+      onClick={handleCanvasClick}
+    >
       <canvas
         ref={canvasRef}
         id="id-canvas"
