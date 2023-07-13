@@ -19,6 +19,7 @@
     }
   },
   "dependencies": {
+    "@ant-design/icons": "^5.1.4",
     "antd": "^5.7.0",
     "axios": "^1.4.0",
     "mobx": "^6.9.1",
