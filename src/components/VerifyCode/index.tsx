@@ -17,17 +17,7 @@ const Identify = ({
   fontSizeMax = 35,
   contentWidth = 100,
   contentHeight = 40
-}: {
-  identifyCode?: string // 默认注册码
-  fontSizeMin?: number // 字体最小值
-  fontSizeMax?: number // 字体最大值
-  backgroundColorMin?: number // 验证码图片背景色最小值
-  backgroundColorMax?: number // 验证码图片背景色最小值
-  dotColorMin?: number // 背景干扰点最小值
-  dotColorMax?: number // 背景干扰点最小值
-  contentWidth?: number // 容器宽度
-  contentHeight?: number // 容器高度
-}) => {
+}: IProps) => {
   const canvasRef = useRef(null)
 
   const randomNum = (min: number, max: number) => {
