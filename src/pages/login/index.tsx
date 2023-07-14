@@ -18,42 +18,19 @@ const index: React.FC = observer(() => {
   // identifyCode define
   const [identifyCode, setIdentifyCode] = useState('1234')
   // set form data
-  const [loginForm, setLoginForm] = useState({
+  const [form] = Form.useForm()
+  // init Form Values
+  const initialValues = {
     username: 'admin',
     password: 'atguigu123',
     verifyCode: '1234'
-  })
+  }
   // loading value
   const [loading, setLoading] = useState(false)
 
   // import mobx userStore
   let { userStore } = useStore()
 
-  // initialValues
-  const initialValues = {
-    username: 'admin',
-    password: 'atguigu123',
-    verifyCode: '1234'
-  }
-  //
-  const handleUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginForm({
-      ...loginForm,
-      username: e.target.value
-    })
-  }
-  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginForm({
-      ...loginForm,
-      password: e.target.value
-    })
-  }
-  const handleVerifyCode = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginForm({
-      ...loginForm,
-      verifyCode: e.target.value
-    })
-  }
   let identifyCodes = '1234567890abcdefjhijklinopqrsduvwxyz'
 
   // reset verifyCode
@@ -74,12 +51,58 @@ const index: React.FC = observer(() => {
     return Math.floor(Math.random() * (max - min) + min)
   }
 
+  // update form values
+  const handleUpdateFormValue = (type: string) => {
+    form.setFieldsValue({
+      type: form.getFieldValue(type)
+    })
+  }
+
+  // verify login form
+  const validatorUsername = (rule: any, value: any) => {
+    return new Promise<void>((resolve, reject) => {
+      if (!value) {
+        reject('请输入账号')
+      } else {
+        resolve()
+      }
+    })
+  }
+
+  const validatorPassword = (rule: any, value: any) => {
+    return new Promise<void>((resolve, reject) => {
+      if (!value) {
+        reject('请输入密码')
+      } else if (value.length < 6 || value.length > 16) {
+        reject('密码应为6~16位的任意组合')
+      } else {
+        resolve()
+      }
+    })
+  }
+
+  const validatorVerifyCode = (rule: any, value: any) => {
+    return new Promise<void>((resolve, reject) => {
+      if (!value) {
+        reject('请输入验证码')
+      } else if (value.length < 4) {
+        reject('请输入正确的验证码')
+      } else if (identifyCode !== value) {
+        reject('请输入正确的验证码')
+      } else {
+        resolve()
+      }
+    })
+  }
+
   // login
   const login = async () => {
     // TODO: login module
+    await form.validateFields()
     setLoading(true)
+
     try {
-      await userStore.userLogin(loginForm)
+      await userStore.userLogin(form.getFieldsValue())
       navigate('/home')
       notification.success({
         message: '登录成功',
@@ -109,29 +132,36 @@ const index: React.FC = observer(() => {
             <h1 className="bg-gradient-to-r from-blue to-rgb-35-60-70 bg-clip-text text-transparent text-10 text-center font-bold mb-10 mt--10">
               React-Admin
             </h1>
-            <Form initialValues={initialValues}>
-              <Form.Item name="username">
+            <Form initialValues={initialValues} form={form}>
+              <Form.Item
+                name="username"
+                rules={[{ validator: validatorUsername }]}
+              >
                 <Input
                   size="large"
                   placeholder="Username"
                   prefix={<UserOutlined />}
-                  value={loginForm.username}
                   allowClear
-                  onChange={handleUsername}
+                  onChange={() => handleUpdateFormValue('username')}
                 />
               </Form.Item>
-              <Form.Item name="password">
+              <Form.Item
+                name="password"
+                rules={[{ validator: validatorPassword }]}
+              >
                 <Input.Password
                   size="large"
                   placeholder="Password"
                   prefix={<LockOutlined />}
-                  value={loginForm.password}
                   allowClear
                   type="password"
-                  onChange={handlePassword}
+                  onChange={() => handleUpdateFormValue('password')}
                 />
               </Form.Item>
-              <Form.Item name="verifyCode">
+              <Form.Item
+                name="verifyCode"
+                rules={[{ validator: validatorVerifyCode }]}
+              >
                 <Input
                   size="large"
                   placeholder="VerifyCode"
@@ -143,9 +173,8 @@ const index: React.FC = observer(() => {
                     />
                   }
                   className="pt-0 pb-0 pr-0"
-                  value={loginForm.verifyCode}
                   maxLength={4}
-                  onChange={handleVerifyCode}
+                  onChange={() => handleUpdateFormValue('verifyCode')}
                 />
               </Form.Item>
               <Form.Item>
