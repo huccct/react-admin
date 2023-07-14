@@ -103,7 +103,7 @@ const index: React.FC = observer(() => {
 
     try {
       await userStore.userLogin(form.getFieldsValue())
-      navigate('/home')
+      navigate('/')
       notification.success({
         message: '登录成功',
         description: `Hi, ${getTime()}好`

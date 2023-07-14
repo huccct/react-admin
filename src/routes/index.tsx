@@ -1,19 +1,36 @@
 import React from 'react'
-import { Navigate } from 'react-router-dom'
 import Login from '@/pages/login'
 import Home from '@/pages/home'
+import Layout from '@/layout/index'
 const routes = [
   {
-    path: '/',
-    element: <Navigate to="/login" />
-  },
-  {
     path: '/login',
-    element: <Login />
+    element: <Login />,
+    name: 'login',
+    meta: {
+      title: 'login',
+      hidden: true
+    }
   },
   {
-    path: '/home',
-    element: <Home />
+    path: '/',
+    element: <Layout />,
+    name: 'layout',
+    meta: {
+      title: '',
+      hidden: false,
+      icon: ''
+    },
+    children: [
+      {
+        path: 'home',
+        element: <Home />,
+        meta: {
+          title: '首页',
+          hidden: false
+        }
+      }
+    ]
   }
 ]
 

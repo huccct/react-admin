@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 
+import { getTime } from '@/utils/time'
+import useStore from '@/stores'
+
 const index = observer(() => {
-  return <div>Home</div>
+  // import mobx userStore
+  let { userStore } = useStore()
+
+  return <div></div>
 })
 
 export default index
