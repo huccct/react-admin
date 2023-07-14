@@ -6,6 +6,10 @@ import type {
   userInfoResponseData
 } from '@/api/user/type'
 import { SET_TOKEN } from '@/utils/token'
+
+// // @ts-ignore
+// import cloneDeep from 'lodash/cloneDeep'
+
 const createUserStore = () => {
   const store = observable({
     token: '',

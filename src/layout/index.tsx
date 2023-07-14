@@ -16,11 +16,12 @@ const index: React.FC = observer(() => {
   const {
     token: { colorBgContainer }
   } = theme.useToken()
+
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="h-14 m-3">
-          <Logo />
+          <Logo iscollapse={collapsed} />
         </div>
         <Menu
           theme="dark"
@@ -62,7 +63,7 @@ const index: React.FC = observer(() => {
           style={{
             margin: '24px 16px',
             padding: 24,
-            minHeight: '100vh',
+            minHeight: '80vh',
             background: colorBgContainer
           }}
         >
