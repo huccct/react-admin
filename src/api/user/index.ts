@@ -2,7 +2,8 @@ import request from '@/utils/request'
 import type {
   LoginFormData,
   LoginResponseData,
-  userInfoResponseData
+  userInfoResponseData,
+  LogoutResponseData
 } from './type'
 
 enum API {
@@ -16,3 +17,6 @@ export const reqLogin = (data: LoginFormData) =>
 
 export const reqUserInfo = () =>
   request.get<string, userInfoResponseData>(API.USERINFO_URL)
+
+export const reqLogout = () =>
+  request.post<string, LogoutResponseData>(API.LOGOUT_URL)

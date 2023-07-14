@@ -22,3 +22,7 @@ export interface userInfoResponseData extends ResponseData {
     avatar: string
   }
 }
+
+export interface LogoutResponseData extends ResponseData {
+  data?: string
+}

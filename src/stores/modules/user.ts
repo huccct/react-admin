@@ -1,26 +1,31 @@
-import { observable, action } from 'mobx'
-import { reqLogin, reqUserInfo } from '@/api/user'
+import { observable, action, runInAction } from 'mobx'
+import { reqLogin, reqUserInfo, reqLogout } from '@/api/user'
 import type {
   LoginFormData,
   LoginResponseData,
-  userInfoResponseData
+  userInfoResponseData,
+  LogoutResponseData
 } from '@/api/user/type'
-import { SET_TOKEN } from '@/utils/token'
-
-// // @ts-ignore
-// import cloneDeep from 'lodash/cloneDeep'
+import { GET_TOKEN, REMOVE_TOKEN, SET_TOKEN } from '@/utils/token'
 
 const createUserStore = () => {
   const store = observable({
-    token: '',
+    token: GET_TOKEN()!,
+    menuRoutes: '',
     username: '',
     avatar: '',
+    buttons: [],
     userLogin: action(async (data: LoginFormData) => {
-      let res = await reqLogin(data)
+      let res: LoginResponseData = await reqLogin(data)
+
       if (res.code === 200) {
-        store.token = res.data as string
+        runInAction(() => {
+          store.token = res.data as string
+        })
+
         // data persistence
         SET_TOKEN(res.data as string)
+
         return 'ok'
       } else {
         return Promise.reject(new Error(res.data as string))
@@ -28,7 +33,29 @@ const createUserStore = () => {
     }),
     userInfo: action(async () => {
       let res: userInfoResponseData = await reqUserInfo()
-      console.log(res)
+      if (res.code === 200) {
+        runInAction(() => {
+          store.username = res.data.name as string
+          store.avatar = res.data.avatar as string
+        })
+
+        return 'ok'
+      } else {
+        return Promise.reject(new Error(res.message))
+      }
+    }),
+    userLogout: action(async () => {
+      let res: LogoutResponseData = await reqLogout()
+      if (res.code === 200) {
+        runInAction(() => {
+          store.token = ''
+          store.username = ''
+          store.avatar = ''
+        })
+        REMOVE_TOKEN()
+      } else {
+        return Promise.reject(new Error(res.message))
+      }
     })
   })
   return store

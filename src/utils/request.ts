@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { message } from 'antd'
+
 let request = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
   timeout: 5000
@@ -7,6 +8,10 @@ let request = axios.create({
 
 request.interceptors.request.use(
   (config) => {
+    let token = localStorage.getItem('TOKEN')
+    if (token) {
+      config.headers.token = token
+    }
     return config
   },
   (error) => {

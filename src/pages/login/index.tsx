@@ -108,6 +108,7 @@ const index: React.FC = observer(() => {
         message: '登录成功',
         description: `Hi, ${getTime()}好`
       })
+      await userStore.userInfo()
       setLoading(false)
     } catch (err) {
       setLoading(false)
