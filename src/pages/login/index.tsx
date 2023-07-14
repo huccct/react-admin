@@ -3,13 +3,18 @@ import {
   LockOutlined,
   InfoCircleOutlined
 } from '@ant-design/icons'
-import { Card, Row, Col, Form, Input, Button } from 'antd'
+import { Card, Row, Col, Form, Input, Button, notification } from 'antd'
 import React, { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import backgroundImage from '@/assets/images/background.jpg'
 import Identify from '@/components/VerifyCode'
 import useStore from '@/stores'
+import { getTime } from '@/utils/time'
+import { useNavigate } from 'react-router-dom'
+
 const index: React.FC = observer(() => {
+  // use navigate
+  const navigate = useNavigate()
   // identifyCode define
   const [identifyCode, setIdentifyCode] = useState('1234')
   // set form data
@@ -18,6 +23,9 @@ const index: React.FC = observer(() => {
     password: 'atguigu123',
     verifyCode: '1234'
   })
+  // loading value
+  const [loading, setLoading] = useState(false)
+
   // import mobx userStore
   let { userStore } = useStore()
 
@@ -27,7 +35,25 @@ const index: React.FC = observer(() => {
     password: 'atguigu123',
     verifyCode: '1234'
   }
-
+  //
+  const handleUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginForm({
+      ...loginForm,
+      username: e.target.value
+    })
+  }
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginForm({
+      ...loginForm,
+      password: e.target.value
+    })
+  }
+  const handleVerifyCode = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginForm({
+      ...loginForm,
+      verifyCode: e.target.value
+    })
+  }
   let identifyCodes = '1234567890abcdefjhijklinopqrsduvwxyz'
 
   // reset verifyCode
@@ -50,10 +76,22 @@ const index: React.FC = observer(() => {
 
   // login
   const login = async () => {
-    // TODO:
-    // console.log(loginForm)
-
-    await userStore.userLogin(loginForm)
+    // TODO: login module
+    setLoading(true)
+    try {
+      await userStore.userLogin(loginForm)
+      navigate('/home')
+      notification.success({
+        message: '登录成功',
+        description: `Hi, ${getTime()}好`
+      })
+      setLoading(false)
+    } catch (err) {
+      setLoading(false)
+      notification.error({
+        message: (err as Error).message
+      })
+    }
   }
   return (
     <div
@@ -79,6 +117,7 @@ const index: React.FC = observer(() => {
                   prefix={<UserOutlined />}
                   value={loginForm.username}
                   allowClear
+                  onChange={handleUsername}
                 />
               </Form.Item>
               <Form.Item name="password">
@@ -89,6 +128,7 @@ const index: React.FC = observer(() => {
                   value={loginForm.password}
                   allowClear
                   type="password"
+                  onChange={handlePassword}
                 />
               </Form.Item>
               <Form.Item name="verifyCode">
@@ -105,10 +145,16 @@ const index: React.FC = observer(() => {
                   className="pt-0 pb-0 pr-0"
                   value={loginForm.verifyCode}
                   maxLength={4}
+                  onChange={handleVerifyCode}
                 />
               </Form.Item>
               <Form.Item>
-                <Button className="w-full" type="primary" onClick={login}>
+                <Button
+                  className="w-full"
+                  type="primary"
+                  onClick={login}
+                  loading={loading}
+                >
                   登录
                 </Button>
               </Form.Item>
