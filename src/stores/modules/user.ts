@@ -7,11 +7,26 @@ import type {
   LogoutResponseData
 } from '@/api/user/type'
 import { GET_TOKEN, REMOVE_TOKEN, SET_TOKEN } from '@/utils/token'
+import { anyRoute, asyncRoute, constantRoute } from '@/routes/routes'
+import routes from '@/routes'
+// @ts-ignore
+import cloneDeep from 'lodash/cloneDeep'
+
+function filterAsyncRoute(asyncRoute: any, routes: any) {
+  return asyncRoute.filter((item: any) => {
+    if (routes.includes(item.name)) {
+      if (item.children && item.children.length > 0) {
+        item.children = filterAsyncRoute(item.children, routes)
+      }
+      return true
+    }
+  })
+}
 
 const createUserStore = () => {
   const store = observable({
     token: GET_TOKEN()!,
-    menuRoutes: '',
+    menuRoutes: [] as any,
     username: '',
     avatar: '',
     buttons: [],
@@ -34,10 +49,16 @@ const createUserStore = () => {
     userInfo: action(async () => {
       let res: userInfoResponseData = await reqUserInfo()
       if (res.code === 200) {
+        let userAsyncRoute = filterAsyncRoute(
+          cloneDeep(asyncRoute),
+          res.data.routes
+        )
         runInAction(() => {
           store.username = res.data.name as string
           store.avatar = res.data.avatar as string
+          store.menuRoutes = [...constantRoute, ...userAsyncRoute, anyRoute]
         })
+        ;[...userAsyncRoute, anyRoute].forEach((route: any) => {})
 
         return 'ok'
       } else {

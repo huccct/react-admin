@@ -13,6 +13,8 @@ import {
 import Logo from './logo'
 import type { MenuProps } from 'antd'
 import TabBar from './tabbar'
+import SideMenu from './sidemenu'
+import useStore from '@/stores'
 const { Header, Sider, Content } = Layout
 const index: React.FC = observer(() => {
   const [collapsed, setCollapsed] = useState(false)
@@ -22,6 +24,7 @@ const index: React.FC = observer(() => {
 
   type MenuItem = Required<MenuProps>['items'][number]
 
+  let { userStore } = useStore()
   function getItem(
     label: React.ReactNode,
     key: React.Key,
@@ -65,12 +68,7 @@ const index: React.FC = observer(() => {
         <div className="h-14 m-3">
           <Logo iscollapse={collapsed} />
         </div>
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={['1']}
-          items={items}
-        />
+        <SideMenu menuList={userStore.menuRoutes} />
       </Sider>
       <Layout>
         <Header

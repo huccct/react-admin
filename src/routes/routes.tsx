@@ -5,6 +5,7 @@ import Layout from '@/layout/index'
 import Error from '@/pages/404'
 import { HomeOutlined } from '@ant-design/icons'
 import { Navigate } from 'react-router-dom'
+
 export const constantRoute = [
   {
     path: '/login',
@@ -41,7 +42,13 @@ export const constantRoute = [
     element: <Error />
   }
 ]
-
+export const asyncRoute = [
+  {
+    path: '/acl',
+    element: <Layout />,
+    name: 'Acl'
+  }
+]
 export const anyRoute = {
   path: '/:pathMatch(.*)*',
   element: <Navigate to="/404" />,

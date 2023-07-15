@@ -31,6 +31,7 @@ module.exports = {
     'no-unused-vars': 'off',
     'prefer-const': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    'react/no-unescaped-entities': 'off'
+    'react/no-unescaped-entities': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off'
   }
 }
