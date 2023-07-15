@@ -1,10 +1,12 @@
 import React from 'react'
 import createUserStore from './modules/user'
-
+import createSettingStore from './modules/setting'
 const createRootStore = () => {
   const userStore = createUserStore()
+  const settingStore = createSettingStore()
   return {
-    userStore
+    userStore,
+    settingStore
   }
 }
 const store = createRootStore()
