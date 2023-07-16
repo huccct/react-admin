@@ -6,7 +6,10 @@ import useStore from './stores'
 const App: React.FC = observer(() => {
   let { userStore } = useStore()
   useEffect(() => {
-    userStore.userInfo()
+    const loadUserInfo = async () => {
+      await userStore.userInfo()
+    }
+    loadUserInfo()
   }, [])
   return (
     <>

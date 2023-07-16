@@ -4,15 +4,18 @@ import {
   InfoCircleOutlined
 } from '@ant-design/icons'
 import { Card, Row, Col, Form, Input, Button, notification } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import backgroundImage from '@/assets/images/background.jpg'
 import Identify from '@/components/VerifyCode'
 import useStore from '@/stores'
 import { getTime } from '@/utils/time'
-import { redirect, useNavigate } from 'react-router-dom'
+import { redirect, useLocation, useNavigate } from 'react-router-dom'
+import nprogress from 'nprogress'
+import setting from '@/setting'
 
 const index: React.FC = observer(() => {
+  const location = useLocation()
   // use navigate
   const navigate = useNavigate()
   // identifyCode define
@@ -30,6 +33,38 @@ const index: React.FC = observer(() => {
 
   // import mobx userStore
   let { userStore } = useStore()
+
+  document.title = ` | ${setting.title}`
+  let token = userStore.token
+  let username = userStore.username
+  useEffect(() => {
+    const checkAuth = async () => {
+      nprogress.start()
+      if (token) {
+        if (location.pathname === '/login') {
+          console.log(11111)
+
+          navigate('/home')
+        } else {
+          if (!username) {
+            try {
+              await userStore.userInfo()
+              navigate(location.pathname)
+            } catch (error) {
+              await userStore.userLogout()
+              navigate('/login')
+            }
+          }
+        }
+      } else {
+        if (location.pathname !== '/login') {
+          navigate('/login')
+        }
+      }
+    }
+    checkAuth()
+    nprogress.done()
+  }, [location.pathname])
 
   let identifyCodes = '1234567890abcdefjhijklinopqrsduvwxyz'
 
