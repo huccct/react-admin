@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { Menu } from 'antd'
+import { Menu, MenuProps } from 'antd'
 import './style/index.scss'
 import { Link } from 'react-router-dom'
 const { SubMenu } = Menu
@@ -9,8 +9,24 @@ interface Iprops {
 }
 
 const SideMenu = observer(({ menuList }: Iprops) => {
+  const [openKeys, setOpenKeys] = useState([])
+  const rootSubmenuKeys = ['5', '6']
+  const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
+    const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1)
+    if (rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
+      setOpenKeys(keys)
+    } else {
+      setOpenKeys(latestOpenKey ? [latestOpenKey] : [])
+    }
+  }
   return (
-    <Menu mode="inline" theme="dark" defaultOpenKeys={['2-1']}>
+    <Menu
+      mode="inline"
+      theme="dark"
+      defaultOpenKeys={['2']}
+      openKeys={openKeys}
+      onOpenChange={onOpenChange}
+    >
       {menuList.map((item) => {
         if (!item.children && !item.meta.hidden) {
           return (

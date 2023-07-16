@@ -48,7 +48,7 @@ const index: React.FC = observer(() => {
           style={{
             margin: '24px 16px',
             padding: 24,
-            minHeight: '80vh',
+            minHeight: '100vh',
             background: colorBgContainer
           }}
         >

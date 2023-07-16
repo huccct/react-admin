@@ -6,7 +6,6 @@ import BreadcrumbItem from 'antd/es/breadcrumb/BreadcrumbItem'
 
 const index: React.FC = observer(() => {
   const matches = useMatches()
-  console.log(matches)
 
   return (
     <Breadcrumb separator={'>'}>
