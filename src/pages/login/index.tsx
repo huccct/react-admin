@@ -10,7 +10,7 @@ import backgroundImage from '@/assets/images/background.jpg'
 import Identify from '@/components/VerifyCode'
 import useStore from '@/stores'
 import { getTime } from '@/utils/time'
-import { useNavigate } from 'react-router-dom'
+import { redirect, useNavigate } from 'react-router-dom'
 
 const index: React.FC = observer(() => {
   // use navigate

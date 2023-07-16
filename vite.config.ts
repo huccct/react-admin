@@ -27,6 +27,9 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
           rewrite: (path) => path.replace(/^\/api/, '')
         }
       }
+    },
+    build: {
+      sourcemap: 'inline'
     }
   }
 }

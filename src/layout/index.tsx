@@ -5,8 +5,8 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import Logo from './logo'
 import TabBar from './tabbar'
 import SideMenu from './sidemenu'
+import Main from './main'
 import useStore from '@/stores'
-import { Outlet } from 'react-router-dom'
 const { Header, Sider, Content } = Layout
 const index: React.FC = observer(() => {
   const [collapsed, setCollapsed] = useState(false)
@@ -15,15 +15,12 @@ const index: React.FC = observer(() => {
   } = theme.useToken()
   let { userStore } = useStore()
 
-  const { SubMenu } = Menu
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <Fragment>
           <Logo iscollapse={collapsed} />
-          <Menu mode="inline" theme="dark">
-            <SideMenu menuList={userStore.menuRoutes} />
-          </Menu>
+          <SideMenu menuList={userStore.menuRoutes} />
         </Fragment>
       </Sider>
       <Layout>
@@ -55,7 +52,7 @@ const index: React.FC = observer(() => {
             background: colorBgContainer
           }}
         >
-          <Outlet />
+          <Main />
         </Content>
       </Layout>
     </Layout>
