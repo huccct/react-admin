@@ -8,53 +8,53 @@ import { Navigate } from 'react-router-dom'
 
 export const constantRoute = [
   {
+    key: '1',
     path: '/login',
     element: <Login />,
-    name: 'login',
+    label: 'login',
     meta: {
       title: 'login',
       hidden: true
     }
   },
   {
+    key: '2',
     path: '/',
     element: <Layout />,
-    name: 'layout',
-    meta: {
-      title: '',
-      hidden: false,
-      icon: ''
-    },
+    label: 'layout',
     children: [
       {
+        key: '3',
         path: 'home',
         element: <Home />,
+        label: '首页',
+        icon: <HomeOutlined />,
         meta: {
-          title: '首页',
-          hidden: false,
-          icon: <HomeOutlined />
+          hidden: false
         }
       }
     ]
   },
   {
+    key: '4',
     path: '/404',
     element: <Error />
   }
 ]
 export const asyncRoute = [
   {
+    key: '5',
     path: '/acl',
     element: <Layout />,
-    name: 'Acl'
+    label: 'Acl'
   }
 ]
 export const anyRoute = {
+  key: '6',
   path: '/:pathMatch(.*)*',
   element: <Navigate to="/404" />,
-  name: 'Any',
+  label: 'Any',
   meta: {
-    title: '任意路由',
     hidden: true
   }
 }

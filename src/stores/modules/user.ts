@@ -7,10 +7,11 @@ import type {
   LogoutResponseData
 } from '@/api/user/type'
 import { GET_TOKEN, REMOVE_TOKEN, SET_TOKEN } from '@/utils/token'
-import { anyRoute, asyncRoute, constantRoute } from '@/routes/routes'
-import routes from '@/routes'
+import { constantRoute, asyncRoute, anyRoute } from '@/routes/routes'
+
 // @ts-ignore
 import cloneDeep from 'lodash/cloneDeep'
+import { useRoutes } from 'react-router-dom'
 
 function filterAsyncRoute(asyncRoute: any, routes: any) {
   return asyncRoute.filter((item: any) => {
@@ -54,11 +55,14 @@ const createUserStore = () => {
           res.data.routes
         )
         runInAction(() => {
+          store.menuRoutes = constantRoute
           store.username = res.data.name as string
           store.avatar = res.data.avatar as string
           store.menuRoutes = [...constantRoute, ...userAsyncRoute, anyRoute]
+          ;[...userAsyncRoute, anyRoute].forEach((route: any) => {
+            constantRoute.push(route)
+          })
         })
-        ;[...userAsyncRoute, anyRoute].forEach((route: any) => {})
 
         return 'ok'
       } else {

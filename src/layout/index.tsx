@@ -1,19 +1,10 @@
 import React, { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Layout, Menu, Button, theme } from 'antd'
-import {
-  AppstoreOutlined,
-  ContainerOutlined,
-  DesktopOutlined,
-  MailOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  PieChartOutlined
-} from '@ant-design/icons'
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import Logo from './logo'
 import type { MenuProps } from 'antd'
 import TabBar from './tabbar'
-import SideMenu from './sidemenu'
 import useStore from '@/stores'
 const { Header, Sider, Content } = Layout
 const index: React.FC = observer(() => {
@@ -25,50 +16,22 @@ const index: React.FC = observer(() => {
   type MenuItem = Required<MenuProps>['items'][number]
 
   let { userStore } = useStore()
-  function getItem(
-    label: React.ReactNode,
-    key: React.Key,
-    icon?: React.ReactNode,
-    children?: MenuItem[],
-    type?: 'group'
-  ): MenuItem {
-    return {
-      key,
-      icon,
-      children,
-      label,
-      type
-    } as MenuItem
-  }
-  const items: MenuItem[] = [
-    getItem('Option 1', '1', <PieChartOutlined />),
-    getItem('Option 2', '2', <DesktopOutlined />),
-    getItem('Option 3', '3', <ContainerOutlined />),
+  const items: MenuItem[] = userStore.menuRoutes
+  console.log(items)
 
-    getItem('Navigation One', 'sub1', <MailOutlined />, [
-      getItem('Option 5', '5'),
-      getItem('Option 6', '6'),
-      getItem('Option 7', '7'),
-      getItem('Option 8', '8')
-    ]),
-
-    getItem('Navigation Two', 'sub2', <AppstoreOutlined />, [
-      getItem('Option 9', '9'),
-      getItem('Option 10', '10'),
-
-      getItem('Submenu', 'sub3', null, [
-        getItem('Option 11', '11'),
-        getItem('Option 12', '12')
-      ])
-    ])
-  ]
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="h-14 m-3">
           <Logo iscollapse={collapsed} />
         </div>
-        <SideMenu menuList={userStore.menuRoutes} />
+        <Menu
+          defaultSelectedKeys={['1']}
+          defaultOpenKeys={['sub1']}
+          mode="inline"
+          theme="dark"
+          items={items}
+        />
       </Sider>
       <Layout>
         <Header
