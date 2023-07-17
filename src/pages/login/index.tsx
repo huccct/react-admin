@@ -34,7 +34,6 @@ const index: React.FC = observer(() => {
   // import mobx userStore
   let { userStore } = useStore()
 
-  document.title = ` | ${setting.title}`
   let token = userStore.token
   let username = userStore.username
   useEffect(() => {

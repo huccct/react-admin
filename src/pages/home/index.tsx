@@ -14,7 +14,6 @@ const index = observer(() => {
   let { userStore } = useStore()
   const location = useLocation()
   const navigate = useNavigate()
-  document.title = ` | ${setting.title}`
   let token = userStore.token
   let username = userStore.username
   useEffect(() => {
@@ -30,7 +29,7 @@ const index = observer(() => {
               navigate(location.pathname)
             } catch (error) {
               await userStore.userLogout()
-              navigate('/login')
+              navigate(location.pathname)
             }
           }
         }
