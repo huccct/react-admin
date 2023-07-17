@@ -2,9 +2,6 @@
     <img src="https://i.mji.rip/2023/07/17/6072a4bab4dff48650ede434ddca15ee.png" alt="6072a4bab4dff48650ede434ddca15ee.png" alt="Logo">
 </h1>
 
-
-
-
 <p align="center">
     <a href="https://github.com/facebook/react/releases">
       <img src="https://img.shields.io/badge/react-18.2.0-brightgreen" alt="react">
@@ -36,20 +33,25 @@
 ## 使用仓库相关命令
 
 ### 安装 pnpm
+
 ```
 npm i pnpm -g
 ```
+
 ### 安装所有依赖
+
 ```
 pnpm install
 ```
+
 ### 启动本地测试项目
+
 ```
 pnpm run dev
 ```
+
 ### 打包
+
 ```
 pnpm run build
 ```
-
-
