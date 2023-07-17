@@ -20,18 +20,17 @@ import {
   SettingOutlined
 } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
+import { Color } from 'antd/es/color-picker'
 const text = '主题设置'
 
 const index: React.FC = observer(() => {
-  // set dark theme
-  const [dark, setDark] = useState(false)
   const navigate = useNavigate()
   const logout = async () => {
     await userStore.userLogout()
     navigate('/login')
   }
   let { userStore, settingStore } = useStore()
-
+  const [dark, setDark] = useState(false)
   // updateRefsh
   const updateRefsh = () => {
     settingStore.refsh = !settingStore.refsh
@@ -46,7 +45,6 @@ const index: React.FC = observer(() => {
       document.exitFullscreen()
     }
   }
-  const color = 'rgba(255, 69, 0, 0.68)'
 
   const presets = [
     {
@@ -71,15 +69,13 @@ const index: React.FC = observer(() => {
   ]
 
   // setColor
-  const setColor = () => {
-    let html = document.documentElement
-    html.style.setProperty('ant-btn-primary', color)
+  const changeColor = (color: any) => {
+    settingStore.colorPrimary = color.toHexString()
   }
 
   // changeDark
   const changeDark = () => {
-    let html = document.documentElement
-    dark ? (html.className = 'dark') : (html.className = '')
+    settingStore.dark = !settingStore.dark
     setDark(!dark)
   }
 
@@ -98,7 +94,12 @@ const index: React.FC = observer(() => {
     <div>
       <Form>
         <Form.Item label={'主题颜色'}>
-          <ColorPicker size="small" onChange={setColor} presets={presets} />
+          <ColorPicker
+            value={settingStore.colorPrimary}
+            size="small"
+            onChange={changeColor}
+            presets={presets}
+          />
         </Form.Item>
         <Form.Item label={'暗黑颜色'}>
           <Switch
