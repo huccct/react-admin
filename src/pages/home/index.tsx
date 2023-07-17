@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import setting from '@/setting'
 import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
+import SvgIcon from '@/components/SvgIcon'
 nprogress.configure({ showSpinner: false })
 
 const index = observer(() => {
@@ -56,11 +57,12 @@ const index = observer(() => {
               {getTime()}好~
               <span className="font-bold text-30px">{userStore.username}</span>
             </h3>
-
-            {/* <p className="italic text-gray-400 font-bold">React-Admin</p> */}
           </div>
         </div>
       </Card>
+      <div className="mt-30px flex justify-center">
+        <SvgIcon name={'welcome'} width={'600px'} height={'300px'} />
+      </div>
     </>
   )
 })
