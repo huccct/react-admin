@@ -41,7 +41,7 @@ export const constantRoute = [
     path: '/',
     element: <Layout />,
     name: 'layout',
-    key: '2',
+    key: 'sub1',
     meta: {
       title: 'layout',
       hidden: false
@@ -50,7 +50,7 @@ export const constantRoute = [
       {
         path: '/',
         element: <Navigate to="/home" />,
-        key: '2-1',
+        key: '3',
         meta: {
           title: '首页',
           hidden: false,
@@ -60,7 +60,7 @@ export const constantRoute = [
       {
         path: 'home',
         element: <Home />,
-        key: '2-2',
+        key: '4',
         meta: {
           title: '首页',
           hidden: true,
@@ -73,7 +73,7 @@ export const constantRoute = [
     path: '/404',
     element: <NotFound />,
     name: '404',
-    key: '3',
+    key: '5',
     meta: {
       title: '404',
       hidden: true
@@ -83,7 +83,7 @@ export const constantRoute = [
     path: '/screen',
     element: <Screen />,
     name: 'Screen',
-    key: '4',
+    key: '6',
     meta: {
       title: '数据大屏',
       hidden: false,
@@ -94,7 +94,7 @@ export const constantRoute = [
     path: '/acl',
     element: <Layout />,
     name: 'Acl',
-    key: '5',
+    key: 'sub2',
     meta: {
       title: '权限管理',
       hidden: false,
@@ -105,7 +105,7 @@ export const constantRoute = [
         path: '/acl/user',
         element: <AclUser />,
         name: 'User',
-        key: '5-1',
+        key: '8',
         meta: {
           title: '用户管理',
           icon: <UserOutlined />
@@ -115,7 +115,7 @@ export const constantRoute = [
         path: '/acl/role',
         element: <AclRole />,
         name: 'Role',
-        key: '5-2',
+        key: '9',
         meta: {
           title: '权限管理',
           icon: <ContactsOutlined />
@@ -125,7 +125,7 @@ export const constantRoute = [
         path: '/acl/permission',
         element: <AclPermission />,
         name: 'Permission',
-        key: '5-3',
+        key: '10',
         meta: {
           title: '菜单管理',
           icon: <MenuOutlined />
@@ -137,7 +137,7 @@ export const constantRoute = [
     path: '/product',
     element: <Layout />,
     name: 'Product',
-    key: '6',
+    key: 'sub3',
     meta: {
       title: '商品管理',
       icon: <ShoppingOutlined />,
@@ -148,7 +148,7 @@ export const constantRoute = [
         path: '/product/trademark',
         element: <ProductTradeMark />,
         name: 'Trademark',
-        key: '6-1',
+        key: '12',
         meta: {
           title: '品牌管理',
           icon: <ShoppingCartOutlined />,
@@ -159,7 +159,7 @@ export const constantRoute = [
         path: '/product/attr',
         element: <ProductAttr />,
         name: 'Attr',
-        key: '6-2',
+        key: '13',
         meta: {
           title: '属性管理',
           icon: <BookOutlined />,
@@ -170,7 +170,7 @@ export const constantRoute = [
         path: '/product/spu',
         element: <ProductSpu />,
         name: 'Spu',
-        key: '6-3',
+        key: '14',
         meta: {
           title: 'Spu管理',
           icon: <ProjectOutlined />,
@@ -181,7 +181,7 @@ export const constantRoute = [
         path: '/product/sku',
         element: <ProductSku />,
         name: 'Sku',
-        key: '6-4',
+        key: '15',
         meta: {
           title: 'Sku管理',
           icon: <ReconciliationOutlined />,
@@ -194,7 +194,7 @@ export const constantRoute = [
     path: '*',
     element: <Navigate to="/404" />,
     name: 'Any',
-    key: '7',
+    key: '16',
     meta: {
       title: '任意路由',
       hidden: true

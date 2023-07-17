@@ -22,8 +22,6 @@ const index = observer(() => {
       nprogress.start()
       if (token) {
         if (location.pathname === '/login') {
-          console.log(11111)
-
           navigate('/home')
         } else {
           if (!username) {
@@ -55,15 +53,15 @@ const index = observer(() => {
             className="w-100px h-100px rounded-full"
           />
           <div className="ml-20px mt-15px">
-            <h3 className="text-35px mb-30px font-bold">{getTime()}好~</h3>
-            <span className="bg-gradient-to-r from-001529 via-001529 to-white bg-clip-text text-transparent text-24px font-bold">
-              {userStore.username}
-            </span>
-            <p className="italic text-gray-400 font-bold">React-Admin</p>
+            <h3 className="text-35px mb-30px font-bold">
+              {getTime()}好~
+              <span className="font-bold text-30px">{userStore.username}</span>
+            </h3>
+
+            {/* <p className="italic text-gray-400 font-bold">React-Admin</p> */}
           </div>
         </div>
       </Card>
-      <div></div>
     </>
   )
 })

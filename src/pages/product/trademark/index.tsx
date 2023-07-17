@@ -68,7 +68,6 @@ const index = observer(() => {
     | 'bottomRight'
   const getHasTradeMark = async (pageNo: number, pageSize: number) => {
     let res: TradeMarkResponseData = await reqHasTradeMark(pageNo, pageSize)
-    console.log(pageNo)
 
     if (res.code === 200) {
       setTotal(res.data.total)
@@ -80,7 +79,7 @@ const index = observer(() => {
   }, [pageNo, limit])
 
   const paginationConfig = {
-    pageSize: 3,
+    pageSize: limit,
     total: total,
     showSizeChanger: true,
     position: ['bottomCenter' as TablePaginationPosition],

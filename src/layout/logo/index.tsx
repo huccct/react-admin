@@ -8,7 +8,7 @@ interface LogoProps {
 const index: React.FC<LogoProps> = observer(({ iscollapse }) => {
   return (
     setting.logoHidden && (
-      <div className="w-45 flex items-center h-14 text-gray-500 font-bold text-4.5 whitespace-nowrap overflow-hidden pl-3  @transition-all duration-200">
+      <div className="w-45 flex items-center h-14 text-gray-500 font-bold text-4.5 whitespace-nowrap pl-3  @transition-all duration-200">
         <img
           src={setting.logo}
           alt="logo"

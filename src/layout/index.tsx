@@ -7,6 +7,7 @@ import TabBar from './tabbar'
 import SideMenu from './sidemenu'
 import Main from './main'
 import useStore from '@/stores'
+import { Footer } from 'antd/es/layout/layout'
 const { Header, Sider, Content } = Layout
 const index: React.FC = observer(() => {
   const [collapsed, setCollapsed] = useState(false)
@@ -16,11 +17,13 @@ const index: React.FC = observer(() => {
   let { userStore } = useStore()
 
   return (
-    <Layout>
+    <Layout style={{ height: '100vh' }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <Fragment>
           <Logo iscollapse={collapsed} />
-          <SideMenu menuList={userStore.menuRoutes} />
+          <Menu mode="inline" theme="dark">
+            <SideMenu menuList={userStore.menuRoutes} />
+          </Menu>
         </Fragment>
       </Sider>
       <Layout>
@@ -28,18 +31,17 @@ const index: React.FC = observer(() => {
           style={{ padding: 0, background: colorBgContainer }}
           className="flex"
         >
-          <div>
-            <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
-              style={{
-                fontSize: '16px',
-                width: 64,
-                height: 64
-              }}
-            />
-          </div>
+          <Button
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: '16px',
+              width: 64,
+              height: 64
+            }}
+          />
+
           <div className="w-90% ml-10px">
             <TabBar />
           </div>
@@ -48,8 +50,9 @@ const index: React.FC = observer(() => {
           style={{
             margin: '24px 16px',
             padding: 24,
-            minHeight: '100vh',
-            background: colorBgContainer
+            background: colorBgContainer,
+            minHeight: '280px',
+            overflow: 'auto'
           }}
         >
           <Main />
