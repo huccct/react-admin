@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="https://i.mji.rip/2023/07/17/6072a4bab4dff48650ede434ddca15ee.png" alt="6072a4bab4dff48650ede434ddca15ee.png" alt="Logo">
+    React-Admin
 </h1>
 
 <p align="center">
